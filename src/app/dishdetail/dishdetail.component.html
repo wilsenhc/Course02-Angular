@@ -41,10 +41,39 @@
           <span> -- {{ comment.author }} {{ comment.date | date }}</span>
         </p>
       </mat-list-item>
+      <mat-list-item *ngIf="showPreview">
+        <h4 matLine>{{ preview.comment }}</h4>
+        <p matLine>{{ preview.rating }} Stars</p>
+        <p matLine>
+          <span> -- {{ preview.author }}</span>
+        </p>
+      </mat-list-item>
+
     </mat-list>
     <div [hidden]="dish">
       <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
     </div>
+
+    <form novalidate [formGroup]="commentForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field class="full-width">
+          <input matInput formControlName="author" placeholder="Name" type="text" required>
+          <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-slider thumbLabel tickInterval="1" formControlName="rating" placeholder="Rating" type="range" required min="0" max="5"></mat-slider>
+        <mat-error *ngIf="formErrors.rating">{{formErrors.rating}}</mat-error>
+      </p>
+      <p>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="comment" placeholder="Your Comment" rows=12></textarea>
+          <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
+        </mat-form-field>
+      </p>
+      <button type="submit" mat-flat-button color="primary" class="text-floral-white" [disabled]="!disabled">Submit</button>
+
+    </form>
   </div>
 
 </div>
