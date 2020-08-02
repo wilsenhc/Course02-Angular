@@ -23,7 +23,7 @@ export class DishdetailComponent implements OnInit {
   next: string;
   disabled: boolean = false;
   showPreview: boolean;
-
+  errMess: string;
   preview: Comment;
   comment: Comment;
 
@@ -61,7 +61,8 @@ export class DishdetailComponent implements OnInit {
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
+      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); },
+        errmess => this.errMess = <any>errmess);
 
     this.preview = new Comment;
 
@@ -107,14 +108,9 @@ export class DishdetailComponent implements OnInit {
             }
           }
         }
-
-        valid = valid && control.valid;
       }
     }
-
-    this.disabled = valid;
-
-    this.displayPreview(valid);
+    this.displayPreview();
   }
 
   onSubmit() {
@@ -144,9 +140,7 @@ export class DishdetailComponent implements OnInit {
     });
   }
 
-  displayPreview(show: boolean) {
-    this.showPreview = show;
-
+  displayPreview() {
     this.preview.author = this.commentForm.controls.author.value;
     this.preview.rating = this.commentForm.controls.rating.value;
     this.preview.comment = this.commentForm.controls.comment.value;
