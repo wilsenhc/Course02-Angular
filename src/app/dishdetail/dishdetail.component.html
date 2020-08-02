@@ -6,8 +6,8 @@
     fxLayoutGap="10px"
     fxLayoutGap.xs="0">
 
-  <div fxFlex="40">
-    <mat-card *ngIf="dish">
+    <div fxFlex="40" *ngIf="dish" [@visibility]="visibility">
+    <mat-card>
       <mat-card-header>
         <mat-card-title>
           <h3 *ngIf="dish">{{dish.name | uppercase}}</h3>
@@ -26,17 +26,17 @@
         <button mat-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
       </mat-card-actions>
     </mat-card>
-    <div [hidden]="dish || errMess">
-      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
-    </div>
-    <div fxFlex *ngIf="errMess">
-      <h2>Error</h2>
-      <h4>{{errMess}}</h4>
-    </div>
+  </div>
+  <div [hidden]="dish || errMess">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 
-  <div fxFlex="40">
-    <mat-list *ngIf="dish">
+  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility">
+    <mat-list>
       <h3>Comments</h3>
       <mat-list-item *ngFor="let comment of dish.comments">
         <h4 matLine>{{ comment.comment }}</h4>
@@ -74,14 +74,13 @@
       </form>
 
     </mat-list>
-    <div [hidden]="dish || errMess">
-      <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
-    </div>
-    <div fxFlex *ngIf="errMess">
-      <h2>Error</h2>
-      <h4>{{errMess}}</h4>
-    </div>
-
+  </div>
+  <div [hidden]="dish || errMess">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 
 </div>
