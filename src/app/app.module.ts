@@ -29,6 +29,7 @@ import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
 import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
+import { FeedbackService } from './services/feedback.service';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
@@ -77,9 +78,11 @@ import { HighlightDirective } from './directives/highlight.directive';
     ReactiveFormsModule,
   ],
   providers: [
+    ProcessHTTPMsgService,
     DishService,
     PromotionService,
     LeaderService,
+    FeedbackService,
     {provide: 'BaseURL', useValue: baseURL}
   ],
   entryComponents: [
