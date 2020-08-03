@@ -28,6 +28,7 @@ export class ContactComponent implements OnInit {
   feedback: Feedback;
   contactType = ContactType;
   inProgress = false;
+  feedbackErrMess: string;
   savedFeedback: Feedback;
 
   formErrors = {
@@ -89,7 +90,9 @@ export class ContactComponent implements OnInit {
 
     this.inProgress = true;
     this.feedbackService.submitFeedback(this.feedback)
-      .subscribe(feedback => { this.savedFeedback = feedback; this.inProgress = false; })
+      .subscribe(feedback => { this.savedFeedback = feedback; this.inProgress = false;
+        setTimeout(() => { this.savedFeedback = null; }, 5000)},
+        errmess => { this.savedFeedback = null; this.feedbackErrMess = <any>errmess; })
 
     this.feedbackForm.reset({
       firstname: '',
